@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper'
 
 import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
+import { register } from '../../actions/auth'
 
 import { alertPass } from '../layout/alertFilter'
 
@@ -50,15 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Register = ({ setAlert, alerts }) => {
+const Register = ({ setAlert, alerts, register }) => {
   const classes = useStyles()
   const [formData, setFormData] = useState({
     name: 'Rafin',
     surname: 'Rahman',
-    // email: 'test@elizabethschool.com',
-    email: '',
-    password: 'a',
-    passwordTwo: 'a',
+    email: 'test@elizabethschool.com',
+    password: 'qwerty123',
+    passwordTwo: 'qwerty123',
     branch: 'London',
   })
   const { name, surname, email, password, passwordTwo, branch } = formData
@@ -73,6 +73,7 @@ const Register = ({ setAlert, alerts }) => {
       setAlert('Password not matching', 'error', 'pwdNotMatch')
     } else {
       console.log('User registered')
+      register({ name, surname, email, password, branch })
     }
   }
   console.log(
@@ -167,7 +168,7 @@ const Register = ({ setAlert, alerts }) => {
                 fullWidth
                 label="Type Password again"
                 type="password"
-                id="password"
+                id="passwordTwo"
                 autoComplete="current-password"
               />
             </Grid>
@@ -212,10 +213,11 @@ const Register = ({ setAlert, alerts }) => {
 }
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
 })
 
-export default connect(mapStateToProps, { setAlert })(Register)
+export default connect(mapStateToProps, { setAlert, register })(Register)

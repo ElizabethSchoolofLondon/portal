@@ -5,10 +5,9 @@ import { REGISTER_SUCCESS, REGISTER_FAIL } from './types'
 export const register = ({ name, surname, email, password, branch }) => async (
   dispatch
 ) => {
-  const formUrl = email.split('@')[0]
   const config = {
     headers: {
-      contentType: 'application/json',
+      'Content-Type': 'application/json',
     },
   }
 
@@ -17,11 +16,18 @@ export const register = ({ name, surname, email, password, branch }) => async (
     surname,
     email,
     password,
-    formUrl,
     branch,
   })
+
+  try {
+    const res = await axios.post('/api/users', body, config)
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: REGISTER_FAIL,
+    })
+  }
 }
-// formUrl
-// employed
-// created
-// university
