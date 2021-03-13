@@ -18,7 +18,8 @@ import Paper from '@material-ui/core/Paper'
 
 import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
-import myAlert from '../../components/layout/alert'
+
+import { alertPass } from '../layout/alertFilter'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -49,14 +50,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, alerts }) => {
   const classes = useStyles()
   const [formData, setFormData] = useState({
     name: 'Rafin',
     surname: 'Rahman',
     email: 'test@elizabethschool.com',
     password: 'a',
-    passwordTwo: 'ab',
+    passwordTwo: 'a',
     branch: 'London',
   })
   const { name, surname, email, password, passwordTwo, branch } = formData
@@ -68,13 +69,14 @@ const Register = ({ setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault()
     if (password !== passwordTwo) {
-      setAlert('Password not matching', 'My error')
-      console.log('THIS IS MY LOG AFTER CLICK:' + myAlert)
+      setAlert('Password not matching', 'error', 'pwdNotMatch')
     } else {
       console.log('User registered')
     }
   }
-  console.log('THIS IS MY LOG:' + myAlert)
+  console.log(
+    alertPass(alerts).length > 0 ? alertPass(alerts)[0].msg : 'Nothing'
+  )
   return (
     <Container components="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={10}>
@@ -114,6 +116,7 @@ const Register = ({ setAlert }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={email}
                 value={email}
                 onChange={(e) => onChange(e)}
                 name="email"
@@ -127,6 +130,10 @@ const Register = ({ setAlert }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={alertPass(alerts).length > 0}
+                helperText={
+                  alertPass(alerts).length > 0 ? alertPass(alerts)[0].msg : ''
+                }
                 value={password}
                 onChange={(e) => onChange(e)}
                 name="password"
@@ -142,6 +149,10 @@ const Register = ({ setAlert }) => {
 
             <Grid item xs={12}>
               <TextField
+                error={alertPass(alerts).length > 0}
+                helperText={
+                  alertPass(alerts).length > 0 ? alertPass(alerts)[0].msg : ''
+                }
                 value={passwordTwo}
                 onChange={(e) => onChange(e)}
                 name="passwordTwo"
@@ -197,4 +208,8 @@ Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
 }
 
-export default connect(null, { setAlert })(Register)
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+})
+
+export default connect(mapStateToProps, { setAlert })(Register)
