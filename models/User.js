@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ['London', 'Birmingham', 'Manchester'],
   },
-  employed: { Type: Boolean },
+  employed: { Type: Boolean, default: true },
   created: { type: Date, default: Date.now },
   university: { type: mongoose.Schema.Types.Object, ref: 'university' },
 })
