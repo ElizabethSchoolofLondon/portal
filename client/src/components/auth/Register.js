@@ -55,7 +55,8 @@ const Register = ({ setAlert, alerts }) => {
   const [formData, setFormData] = useState({
     name: 'Rafin',
     surname: 'Rahman',
-    email: 'test@elizabethschool.com',
+    // email: 'test@elizabethschool.com',
+    email: '',
     password: 'a',
     passwordTwo: 'a',
     branch: 'London',
@@ -116,7 +117,12 @@ const Register = ({ setAlert, alerts }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                error={email}
+                error={email !== '' && !email.endsWith('@elizabethschool.com')}
+                helperText={
+                  email !== '' && !email.endsWith('@elizabethschool.com')
+                    ? 'Must use your existing company @elizabethschool.com'
+                    : ''
+                }
                 value={email}
                 onChange={(e) => onChange(e)}
                 name="email"
