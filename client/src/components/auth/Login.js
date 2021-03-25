@@ -104,7 +104,7 @@ const Login = ({ login }) => {
             style={{ backgroundColor: colorPalette.light.buttonSelected }}
             className={classes.submit}
           >
-            Sign Up
+            Sign In
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
