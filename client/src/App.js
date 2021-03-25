@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
+import University from './components/pages/University'
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
@@ -30,6 +31,7 @@ function App() {
           <Switch>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/university" component={University} />
           </Switch>
         </ThemeProvider>
       </Router>

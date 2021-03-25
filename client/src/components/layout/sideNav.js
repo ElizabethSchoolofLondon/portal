@@ -14,10 +14,12 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 
-export default const sideNav = ({ login }) => {
+const SideNav = () => {
   return (
     <Container>
-      Hello, world
+      <Button variant="contained">Default</Button>
     </Container>
   )
 }
+
+export default SideNav
