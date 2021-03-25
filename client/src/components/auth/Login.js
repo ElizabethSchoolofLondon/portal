@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import crown from '../../assets/logo/crown-orange.png'
 import { Link } from 'react-router-dom'
 import colorPalette from '../../utils/colors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { login } from '../../actions/auth'
 
 import Container from '@material-ui/core/container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login = (props) => {
+const Login = ({ login }) => {
   const classes = useStyles()
   const [formData, setFormData] = useState({
     email: '',
@@ -54,7 +57,7 @@ const Login = (props) => {
     })
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log('User logged in')
+    login(email, password)
   }
   return (
     <Container components="main" maxWidth="xs">
@@ -116,6 +119,7 @@ const Login = (props) => {
   )
 }
 
-Login.propTypes = {}
-
-export default Login
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+}
+export default connect(null, { login })(Login)

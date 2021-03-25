@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -7,12 +7,20 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
+import { loadUser } from './actions/auth'
+import setAuthToken from './utils/setAuthToken'
 
-// Redux
 import { Provider } from 'react-redux'
 import store from './store'
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token)
+}
+
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser())
+  }, [])
   return (
     <Provider store={store}>
       <Router>
