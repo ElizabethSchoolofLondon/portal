@@ -71,8 +71,9 @@ const Register = ({ setAlert, alerts, register }) => {
     e.preventDefault()
     if (password !== passwordTwo) {
       setAlert('Password not matching', 'error', 'pwdNotMatch')
+    } else if (password.length < 6) {
+      setAlert('Password must be at least 6 characters', 'error', 'pwdShort')
     } else {
-      console.log('User registered')
       register({ name, surname, email, password, branch })
     }
   }
@@ -86,6 +87,9 @@ const Register = ({ setAlert, alerts, register }) => {
 
         <Typography component="h1" variant="h5">
           Register
+        </Typography>
+        <Typography component="p">
+          {alertPass(alerts).length > 0 ? alertPass(alerts)[0].msg : ''}
         </Typography>
         <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
