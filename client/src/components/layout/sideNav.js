@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,6 +19,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+
+import { login } from '../../actions/auth'
 
 const drawerWidth = 240;
 
@@ -77,6 +81,13 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  selected: {
+    '&.Mui-selected': {
+       backgroundColor: "orange",
+       color: "white",
+       fontWeight: 600
+    }
+  },
 }));
 
 const PersistentDrawerLeft = () => {
@@ -120,11 +131,52 @@ const PersistentDrawerLeft = () => {
         </div>
         <Divider />
         <List>
-          {['My Students', 'University', 'Student Finance', 'My Performance'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <MenuItem 
+            component={Link} 
+            linkButton={true} 
+            selected={useLocation().pathname == "/students" ? true : false} 
+            to="/students"
+            classes={{
+              selected: classes.selected,
+            }}
+          >
+            My Students
+          </MenuItem>
+          <MenuItem 
+            component={Link} 
+            linkButton={true} 
+            selected={useLocation().pathname == "/university" ? true : false} 
+            to="/university"
+            classes={{
+              selected: classes.selected,
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#495054'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'orange'}
+          >
+            University
+          </MenuItem>
+          <MenuItem 
+            component={Link} 
+            linkButton={true} 
+            selected={useLocation().pathname == "/sfe" ? true : false} 
+            to="/sfe"
+            classes={{
+              selected: classes.selected,
+            }}
+          >
+            Student Finance
+          </MenuItem>
+          <MenuItem 
+            component={Link} 
+            linkButton={true} 
+            selected={useLocation().pathname == "/performance" ? true : false} 
+            to="/performance"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            My Performance
+          </MenuItem>
         </List>
         <Divider />
       </Drawer>
