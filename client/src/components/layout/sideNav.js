@@ -21,8 +21,11 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 import { login } from '../../actions/auth'
+import Colors from '../../utils/colors' 
 
 const drawerWidth = 240;
+const light = Colors.light;
+const dark = Colors.dark;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,10 +86,15 @@ const useStyles = makeStyles((theme) => ({
   },
   selected: {
     '&.Mui-selected': {
-       backgroundColor: "orange",
+       backgroundColor: light.orange,
        color: "white",
        fontWeight: 600
-    }
+    },
+    '&.Mui-selected:hover': {
+       backgroundColor: light.grey,
+       color: "white",
+       fontWeight: 600
+    },
   },
 }));
 
@@ -145,20 +153,18 @@ const PersistentDrawerLeft = () => {
           <MenuItem 
             component={Link} 
             linkButton={true} 
-            selected={useLocation().pathname == "/university" ? true : false} 
+            selected={useLocation().pathname === "/university" ? true : false} 
             to="/university"
             classes={{
               selected: classes.selected,
             }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#495054'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'orange'}
           >
             University
           </MenuItem>
           <MenuItem 
             component={Link} 
             linkButton={true} 
-            selected={useLocation().pathname == "/sfe" ? true : false} 
+            selected={useLocation().pathname === "/sfe" ? true : false} 
             to="/sfe"
             classes={{
               selected: classes.selected,
@@ -169,7 +175,7 @@ const PersistentDrawerLeft = () => {
           <MenuItem 
             component={Link} 
             linkButton={true} 
-            selected={useLocation().pathname == "/performance" ? true : false} 
+            selected={useLocation().pathname === "/performance" ? true : false} 
             to="/performance"
             classes={{
               paper: classes.drawerPaper,

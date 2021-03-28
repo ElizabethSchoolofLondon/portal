@@ -8,6 +8,7 @@ import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import University from './components/pages/University'
+import Students from './components/pages/Students'
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
@@ -31,6 +32,7 @@ function App() {
           <Switch>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/students" component={Students} />
             <Route exact path="/university" component={University} />
           </Switch>
         </ThemeProvider>

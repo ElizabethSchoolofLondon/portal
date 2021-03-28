@@ -14,6 +14,7 @@ const Colors = {
     textBasic: '#FFFFFF',
     textDisabled: '#535454',
     grey: '#585858',
+    orange: '#F3AB3C',
     bgCardHeader: '#f39c12',
     bgCard: '#f1f2f6',
     bgGlobal: '#2F333D',
