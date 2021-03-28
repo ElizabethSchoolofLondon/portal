@@ -15,7 +15,7 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 
-const University = ({}) => {
+const Universities = ({}) => {
   // const classes = useStyles()
   /* In case we use Forms
   const [formData, setFormData] = useState({
@@ -36,4 +36,4 @@ const University = ({}) => {
   )
 }
 
-export default University
+export default Universities

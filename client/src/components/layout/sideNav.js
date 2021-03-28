@@ -153,13 +153,13 @@ const PersistentDrawerLeft = () => {
           <MenuItem 
             component={Link} 
             linkButton={true} 
-            selected={useLocation().pathname === "/university" ? true : false} 
-            to="/university"
+            selected={useLocation().pathname === "/universities" ? true : false} 
+            to="/universities"
             classes={{
               selected: classes.selected,
             }}
           >
-            University
+            Universities
           </MenuItem>
           <MenuItem 
             component={Link} 
