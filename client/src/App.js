@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -19,7 +19,8 @@ if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
 
-function App() {
+export default function App() {
+  const [themeSelected, setThemeSelected] = useState("primary");
   useEffect(() => {
     store.dispatch(loadUser())
   }, [])
@@ -40,5 +41,3 @@ function App() {
     </Provider>
   )
 }
-
-export default App

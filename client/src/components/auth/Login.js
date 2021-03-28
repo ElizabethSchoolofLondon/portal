@@ -5,6 +5,7 @@ import colorPalette from '../../utils/colors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
+import { ThemeProvider } from '@material-ui/core/styles'
 
 import Container from '@material-ui/core/container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,6 +14,8 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
+
+import theme from '../../theme'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -25,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: colorPalette.light.bgCard,
+    backgroundColor: theme.palette.primary.bgGrey,
   },
   form: {
     width: '100%',
@@ -44,22 +47,32 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Login = ({ login }) => {
+  const [themeSelected, setThemeSelected] = useState("secondary");
   const classes = useStyles()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
   const { email, password } = formData
+
   const onChange = (e) =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     })
+
   const onSubmit = async (e) => {
     e.preventDefault()
     login(email, password)
   }
+
+  const changeTheme = () => {
+    if (themeSelected === "primary") setThemeSelected ("secondary");
+    else setThemeSelected("primary");
+  };
+
   return (
+    <ThemeProvider theme={theme}>
     <Container components="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={10}>
         <img src={crown} alt="" height={50} />
@@ -116,6 +129,7 @@ const Login = ({ login }) => {
         </form>
       </Paper>
     </Container>
+  </ThemeProvider>
   )
 }
 
