@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import colorPalette from '../../utils/colors'
 import crown from '../../assets/logo/crown-orange.png'
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Register = ({ setAlert, alerts, register }) => {
+const Register = ({ setAlert, alerts, register, isAuthenticated }) => {
   const classes = useStyles()
   const [formData, setFormData] = useState({
     name: 'Rafin',
@@ -77,9 +77,10 @@ const Register = ({ setAlert, alerts, register }) => {
       register({ name, surname, email, password, branch })
     }
   }
-  console.log(
-    alertPass(alerts).length > 0 ? alertPass(alerts)[0].msg : 'Nothing'
-  )
+
+  if (isAuthenticated) {
+    return <Redirect to="/university" />
+  }
   return (
     <Container components="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={10}>
@@ -218,10 +219,12 @@ const Register = ({ setAlert, alerts, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
+  isAuthenticated: state.auth.isAuthenticated,
 })
 
 export default connect(mapStateToProps, { setAlert, register })(Register)
