@@ -62,7 +62,8 @@ const Login = ({ login, isAuthenticated }) => {
 
   // redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/university" />
+
+    return <Redirect to="/students" />
   }
   return (
     <Container components="main" maxWidth="xs">
