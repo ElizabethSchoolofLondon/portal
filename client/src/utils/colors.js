@@ -16,7 +16,7 @@ const Colors = {
     grey: '#585858',
     orange: '#F3AB3C',
     bgCardHeader: '#f39c12',
-    bgCard: '#f1f2f6',
+    bgCard: '#FFFBED',
     bgGlobal: '#2F333D',
     buttonSelected: '#F3AB3C',
     buttonUnselected: '#363941',
