@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import crown from '../../assets/logo/crown-orange.png'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import colorPalette from '../../utils/colors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login = ({ login }) => {
+const Login = ({ login, isAuthenticated }) => {
   const classes = useStyles()
   const [formData, setFormData] = useState({
     email: '',
@@ -58,6 +58,11 @@ const Login = ({ login }) => {
   const onSubmit = async (e) => {
     e.preventDefault()
     login(email, password)
+  }
+
+  // redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/university" />
   }
   return (
     <Container components="main" maxWidth="xs">
@@ -121,5 +126,10 @@ const Login = ({ login }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 }
-export default connect(null, { login })(Login)
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+export default connect(mapStateToProps, { login })(Login)
