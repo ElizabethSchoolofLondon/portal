@@ -25,7 +25,6 @@ import { alertPass } from '../layout/alertFilter'
 const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(2),
-    backgroundColor: theme.palette.secondary.main,
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: colorPalette.light.bgCard,
   },
   form: {
     width: '100%',

@@ -19,26 +19,25 @@ if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
 
-function App() {
+export default function App() {
   useEffect(() => {
     store.dispatch(loadUser())
   }, [])
   return (
     <Provider store={store}>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Route exact path="/" component={Login} />
-          <Switch>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/students" component={Students} />
-            <Route exact path="/universities" component={Universities} />
-          </Switch>
-        </ThemeProvider>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+            <CssBaseline />
+            <Route exact path="/" component={Login} />
+            <Switch>
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/students" component={Students} />
+              <Route exact path="/universities" component={Universities} />
+            </Switch>
+        </Router>
+      </ThemeProvider>
     </Provider>
   )
 }
 
-export default App

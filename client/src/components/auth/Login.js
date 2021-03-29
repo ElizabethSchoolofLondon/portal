@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import crown from '../../assets/logo/crown-orange.png'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import Link from '@material-ui/core/Link';
 import colorPalette from '../../utils/colors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import theme from '../../theme'
 
 import Container from '@material-ui/core/container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -17,7 +21,6 @@ import Paper from '@material-ui/core/Paper'
 const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(2),
-    backgroundColor: theme.palette.secondary.main,
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -25,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: colorPalette.light.bgCard,
   },
   form: {
     width: '100%',
@@ -65,6 +67,7 @@ const Login = ({ login, isAuthenticated }) => {
     return <Redirect to="/students" />
   }
   return (
+    <ThemeProvider theme={theme}>
     <Container components="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={10}>
         <img src={crown} alt="" height={50} />
@@ -106,14 +109,15 @@ const Login = ({ login, isAuthenticated }) => {
             type="submit"
             fullWidth
             variant="contained"
-            style={{ backgroundColor: colorPalette.light.buttonSelected }}
+            // style={{ backgroundColor: colorPalette.light.buttonSelected }}
             className={classes.submit}
+            color="secondary"
           >
             Sign In
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/register" variant="body2">
+              <Link href="/register" color="secondary" underline="hover" variant="body2">
                 Don't have an account? Sign up
               </Link>
             </Grid>
@@ -121,6 +125,7 @@ const Login = ({ login, isAuthenticated }) => {
         </form>
       </Paper>
     </Container>
+    </ThemeProvider>
   )
 }
 
