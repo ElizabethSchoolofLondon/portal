@@ -26,13 +26,13 @@ import theme from '../../theme'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+root: {
     display: 'flex',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
@@ -44,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginLeft: theme.spacing(2),
-    marginTop: theme.spacing(1),
-	
+    marginRight: theme.spacing(2),
   },
   hide: {
     display: 'none',
@@ -109,9 +107,37 @@ const PersistentDrawerLeft = () => {
     setOpen(false);
   };
 
+
   return (
     <div className={classes.root}>
       <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+            {
+              {
+                '/students': <Typography>Students</Typography>,
+                '/universities': <Typography>Universities</Typography>,
+                default: console.log('error')
+              }[useLocation().pathname]
+            }
+            </Typography>
+          </Toolbar>
+        </AppBar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
