@@ -1,32 +1,33 @@
-import React, {useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import clsx from 'clsx'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import InboxIcon from '@material-ui/icons/MoveToInbox'
+import MailIcon from '@material-ui/icons/Mail'
 
 import { login } from '../../actions/auth'
 import theme from '../../theme'
+import { StudentNav, UniversityNav } from './navComponents'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
-root: {
+  root: {
     display: 'flex',
   },
   appBar: {
@@ -82,62 +83,41 @@ root: {
   },
   selected: {
     '&.Mui-selected': {
-       backgroundColor: theme.palette.primary.main,
-       color: "white",
-       fontWeight: 600
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
+      fontWeight: 600,
     },
     '&.Mui-selected:hover': {
-       backgroundColor: theme.palette.secondary.main,
-       color: "black",
-       fontWeight: 600
+      backgroundColor: theme.palette.secondary.main,
+      color: 'black',
+      fontWeight: 600,
     },
   },
-}));
+}))
 
 const PersistentDrawerLeft = () => {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const classes = useStyles()
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+    setOpen(false)
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-            {
-              {
-                '/students': <Typography>Students</Typography>,
-                '/universities': <Typography>Universities</Typography>,
-                default: console.log('error')
-              }[useLocation().pathname]
-            }
-            </Typography>
-          </Toolbar>
-        </AppBar>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -147,6 +127,26 @@ const PersistentDrawerLeft = () => {
           >
             <MenuIcon />
           </IconButton>
+          <Typography variant="h6" noWrap>
+            {
+              {
+                '/students': <StudentNav />,
+                '/universities': <UniversityNav />,
+                default: console.log('error'),
+              }[useLocation().pathname]
+            }
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        edge="start"
+        className={clsx(classes.menuButton, open && classes.hide)}
+      >
+        <MenuIcon />
+      </IconButton>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -158,15 +158,19 @@ const PersistentDrawerLeft = () => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
         <List>
-          <MenuItem 
-            component={Link} 
-            linkButton={true} 
-            selected={useLocation().pathname == "/students" ? true : false} 
+          <MenuItem
+            component={Link}
+            linkButton={true}
+            selected={useLocation().pathname == '/students' ? true : false}
             to="/students"
             classes={{
               selected: classes.selected,
@@ -174,10 +178,10 @@ const PersistentDrawerLeft = () => {
           >
             My Students
           </MenuItem>
-          <MenuItem 
-            component={Link} 
-            linkButton={true} 
-            selected={useLocation().pathname === "/universities" ? true : false} 
+          <MenuItem
+            component={Link}
+            linkButton={true}
+            selected={useLocation().pathname === '/universities' ? true : false}
             to="/universities"
             classes={{
               selected: classes.selected,
@@ -185,10 +189,10 @@ const PersistentDrawerLeft = () => {
           >
             Universities
           </MenuItem>
-          <MenuItem 
-            component={Link} 
-            linkButton={true} 
-            selected={useLocation().pathname === "/sfe" ? true : false} 
+          <MenuItem
+            component={Link}
+            linkButton={true}
+            selected={useLocation().pathname === '/sfe' ? true : false}
             to="/sfe"
             classes={{
               selected: classes.selected,
@@ -196,10 +200,10 @@ const PersistentDrawerLeft = () => {
           >
             Student Finance
           </MenuItem>
-          <MenuItem 
-            component={Link} 
-            linkButton={true} 
-            selected={useLocation().pathname === "/performance" ? true : false} 
+          <MenuItem
+            component={Link}
+            linkButton={true}
+            selected={useLocation().pathname === '/performance' ? true : false}
             to="/performance"
             classes={{
               paper: classes.drawerPaper,
@@ -211,7 +215,7 @@ const PersistentDrawerLeft = () => {
         <Divider />
       </Drawer>
     </div>
-  );
+  )
 }
 
 export default PersistentDrawerLeft
