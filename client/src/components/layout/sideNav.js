@@ -21,11 +21,9 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 import { login } from '../../actions/auth'
-import Colors from '../../utils/colors' 
+import theme from '../../theme'
 
 const drawerWidth = 240;
-const light = Colors.light;
-const dark = Colors.dark;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
@@ -86,13 +84,13 @@ const useStyles = makeStyles((theme) => ({
   },
   selected: {
     '&.Mui-selected': {
-       backgroundColor: light.orange,
+       backgroundColor: theme.palette.primary.main,
        color: "white",
        fontWeight: 600
     },
     '&.Mui-selected:hover': {
-       backgroundColor: light.grey,
-       color: "white",
+       backgroundColor: theme.palette.secondary.main,
+       color: "black",
        fontWeight: 600
     },
   },
