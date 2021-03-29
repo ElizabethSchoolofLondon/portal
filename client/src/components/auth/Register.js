@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import colorPalette from '../../utils/colors'
 import crown from '../../assets/logo/crown-orange.png'
@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/formControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
+import Link from '@material-ui/core/Link'
 
 import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
@@ -204,7 +205,12 @@ const Register = ({ setAlert, alerts, register, isAuthenticated }) => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/login" variant="body2">
+              <Link
+                href="/login"
+                color="secondary"
+                underline="hover"
+                variant="body2"
+              >
                 Already have an account? Sign in
               </Link>
             </Grid>
