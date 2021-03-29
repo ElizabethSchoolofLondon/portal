@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -7,10 +7,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
-
 import Universities from './components/pages/Universities'
 import Students from './components/pages/Students'
-
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
@@ -22,24 +20,24 @@ if (localStorage.token) {
 }
 
 export default function App() {
-  const [themeSelected, setThemeSelected] = useState("primary");
   useEffect(() => {
     store.dispatch(loadUser())
   }, [])
   return (
     <Provider store={store}>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Route exact path="/" component={Login} />
-          <Switch>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/students" component={Students} />
-            <Route exact path="/universities" component={Universities} />
-          </Switch>
-        </ThemeProvider>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+            <CssBaseline />
+            <Route exact path="/" component={Login} />
+            <Switch>
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/students" component={Students} />
+              <Route exact path="/universities" component={Universities} />
+            </Switch>
+        </Router>
+      </ThemeProvider>
     </Provider>
   )
 }
+
