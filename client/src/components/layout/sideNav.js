@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+import { logout } from '../../actions/auth'
+import PropTypes from 'prop-types'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -109,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const PersistentDrawerLeft = () => {
+const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -256,11 +259,20 @@ const PersistentDrawerLeft = () => {
 				>
 					<MenuItem disabled={true} onClick={handleClose}>Profile</MenuItem>
 					<MenuItem disabled={true} onClick={handleClose}>My account</MenuItem>
-					<MenuItem onClick={handleClose}>Logout</MenuItem>
+					<MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
       </Drawer>
     </div>
   )
 }
 
-export default PersistentDrawerLeft
+PersistentDrawerLeft.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(PersistentDrawerLeft)
