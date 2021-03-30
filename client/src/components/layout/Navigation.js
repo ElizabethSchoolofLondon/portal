@@ -27,7 +27,7 @@ import Menu from '@material-ui/core/Menu'
 
 import { login } from '../../actions/auth'
 import theme from '../../theme'
-import { StudentNav, UniversityNav } from './navComponents'
+import { StudentNav, UniversityNav } from './NavComponents'
 
 const drawerWidth = 240
 
@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -265,7 +265,7 @@ const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading, user }, logout
   )
 }
 
-PersistentDrawerLeft.propTypes = {
+Navigation.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
@@ -274,4 +274,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(PersistentDrawerLeft)
+export default connect(mapStateToProps, { logout })(Navigation)
