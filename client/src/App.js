@@ -3,6 +3,7 @@ import './App.css'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import PrivateRoute from './components/routing/PrivateRoute'
 
 import theme from './theme'
 import Register from './components/auth/Register'
@@ -32,8 +33,8 @@ export default function App() {
             <Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/students" component={Students} />
-              <Route exact path="/universities" component={Universities} />
+              <PrivateRoute exact path="/students" component={Students} />
+              <PrivateRoute exact path="/universities" component={Universities} />
             </Switch>
         </Router>
       </ThemeProvider>
