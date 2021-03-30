@@ -8,8 +8,10 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
+
 import Universities from './components/pages/Universities'
 import Students from './components/pages/Students'
+
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
