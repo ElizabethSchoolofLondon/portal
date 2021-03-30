@@ -1,19 +1,24 @@
 import { createMuiTheme } from '@material-ui/core/styles'
+import orange from '@material-ui/core/colors/orange';
 
 const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        body: {
-          backgroundColor: '#f5f6fa',
-        },
       },
     },
-    palette: {
-      orange: {
-        main: '#F1B753',
-      },
+  },
+  palette: {
+    primary: { 
+      main: orange[500],
     },
+    secondary: { 
+      main: '#ffcc80',
+    },
+    type: 'light',
+  },
+  typography: {
+    fontFamily: 'Poppins',
   },
 })
 
