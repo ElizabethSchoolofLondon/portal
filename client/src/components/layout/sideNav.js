@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, Redirect } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading }, logout }) => {
+const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -159,7 +159,6 @@ const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading }, logout }) =>
               {
                 '/students': <StudentNav />,
                 '/universities': <UniversityNav />,
-                default: console.log('error'),
               }[useLocation().pathname]
             }
           </Typography>
@@ -246,8 +245,8 @@ const PersistentDrawerLeft = ({ auth: { isAuthenticated, loading }, logout }) =>
           onClick={handleClick}
           className={classes.profileMenu}
         >
-					Martin Kirilov {// Placeholder
-          }
+
+          { !loading && (<>{user ? <Typography>{user.name} {user.surname}</Typography> : <Typography>Logged Out</Typography>}</> )}
 				</Button>
 				<Menu
 					id="simple-menu"
