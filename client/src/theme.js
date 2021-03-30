@@ -15,7 +15,7 @@ const theme = createMuiTheme({
     secondary: { 
       main: '#ffcc80',
     },
-    type: 'dark',
+    type: 'light',
   },
   typography: {
     fontFamily: 'Poppins',

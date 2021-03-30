@@ -19,6 +19,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
 
 import { login } from '../../actions/auth'
 import theme from '../../theme'
@@ -93,12 +95,33 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
     },
   },
+  profileMenu: {
+    margin: theme.spacing.unit, // You might not need this now
+    position: "fixed",
+    bottom: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 6,
+  },
+  menuWidth: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '550px'
+  }
+
 }))
 
 const PersistentDrawerLeft = () => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -113,6 +136,7 @@ const PersistentDrawerLeft = () => {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="white"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -211,8 +235,29 @@ const PersistentDrawerLeft = () => {
           >
             My Performance
           </MenuItem>
-        </List>
+				</List>
         <Divider />
+				<Button 
+          aria-controls="simple-menu" 
+          aria-haspopup="true" 
+          onClick={handleClick}
+          className={classes.profileMenu}
+        >
+					Martin Kirilov {// Placeholder
+          }
+				</Button>
+				<Menu
+					id="simple-menu"
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}
+          className={classes.menuWidth}
+				>
+					<MenuItem disabled={true} onClick={handleClose}>Profile</MenuItem>
+					<MenuItem disabled={true} onClick={handleClose}>My account</MenuItem>
+					<MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
       </Drawer>
     </div>
   )
