@@ -10,24 +10,31 @@ import {
   Button,
   TextField,
   IconButton,
+  Menu,
+  Badge,
+  Toolbar,
 } from '@material-ui/core';
 
 import {
   SearchIcon,
-  NotificationsIcon,
-  MoreIcon
 } from '@material-ui/icons';
+
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+		maxHeight: '64px',
   },
   search: {
     position: 'relative',
     marginRight: theme.spacing(2),
     marginLeft: 0,
+		minWidth: '250px',
+		maxWidth: '250px',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
@@ -52,6 +59,17 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
   },
 }));
 
@@ -78,6 +96,27 @@ export const Search = () => {
   };
   
   const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem>
+        <IconButton aria-label="4 New Notifications" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+      </MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
 
   const renderMobileMenu = (
     <Menu
@@ -101,6 +140,7 @@ export const Search = () => {
   
   return (
     <div className={classes.grow}>
+    <div style={{display:'flex', maxHeight: '64px'}}>
       <div className={classes.search}>
         <Autocomplete
           freeSolo
@@ -108,31 +148,32 @@ export const Search = () => {
           disableClearable
           options={filterOptions.map((option) => option.name)}
           renderInput={(params) => (
-            <TextField {...params} label="Search..." margin="normal" variant="outlined" />
+            <TextField {...params} label="Search..." margin="normal" variant="outlined" size="small"/>
           )}
         />
-        <div className={classes.grow} />
-        <div className={classes.sectionDesktop}>
-          <IconButton aria-label="4 New Notifications" color="inherit">
-            <Badge badgeConteont={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </div>
-        <div className={classes.sectionMobile}>
-          <IconButton
-            aria-label="Show More"
-            aria-controls={mobileMenuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="inherit"
-          >
-            <MoreIcon />
-          </IconButton>
-        </div>
+      </div>
+      <div className={classes.grow} />
+      <div className={classes.sectionDesktop}>
+        <IconButton aria-label="show 11 new notifications" color="inherit" className={classes.button}>
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon styles={{borderRadius: 100}}/>
+          </Badge>
+        </IconButton>
+      </div>
+      <div className={classes.sectionMobile}>
+        <IconButton
+          aria-label="Show More"
+          aria-controls={mobileMenuId}
+          aria-haspopup="true"
+          onClick={handleMobileMenuOpen}
+          color="inherit"
+        >
+          <MoreIcon />
+        </IconButton>
       </div>
       {renderMobileMenu}
       {renderMenu}
+      </div>
     </div>
   )
 }
