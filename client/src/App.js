@@ -9,9 +9,6 @@ import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 
-import Universities from './components/pages/Universities'
-import Students from './components/pages/Students'
-
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
@@ -30,17 +27,14 @@ export default function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Router>
-            <CssBaseline />
-            <Route exact path="/" component={Login} />
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/students" component={Students} />
-              <PrivateRoute exact path="/universities" component={Universities} />
-            </Switch>
+          <CssBaseline />
+          <Route exact path="/" component={Login} />
+          <Switch>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
         </Router>
       </ThemeProvider>
     </Provider>
   )
 }
-

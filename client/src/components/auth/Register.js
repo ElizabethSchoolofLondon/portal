@@ -78,9 +78,7 @@ const Register = ({ setAlert, alerts, register, isAuthenticated }) => {
   }
 
   if (isAuthenticated) {
-
-    return <Redirect to="/universities" />
-
+    return <Redirect to="/" />
   }
   return (
     <Container components="main" maxWidth="xs">
