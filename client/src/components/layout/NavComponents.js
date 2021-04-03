@@ -19,6 +19,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+		maxHeight: '64px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
+		minWidth: '250px',
+		maxWidth: '250px',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
@@ -220,6 +223,7 @@ export function Search() {
 				</Grid>
       {renderMobileMenu}
       {renderMenu}
+      </div>
     </div>
   );
 }
