@@ -26,6 +26,7 @@ import {
   ListItemText,
   Button,
   Menu,
+  Grid,
 } from '@material-ui/core'
 
 import MenuIcon from '@material-ui/icons/Menu'
@@ -162,7 +163,12 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
             {
               {
                 '/students': <Search />,

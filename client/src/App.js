@@ -8,6 +8,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import theme from './theme'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
+import Students from './components/pages/Students'
 
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
@@ -32,6 +33,7 @@ export default function App() {
           <Switch>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/students" component={Students} />
           </Switch>
         </Router>
       </ThemeProvider>
