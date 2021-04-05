@@ -33,6 +33,7 @@ export default function App() {
           <Switch>
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/students" component={Students} />
           </Switch>
         </Router>
       </ThemeProvider>
