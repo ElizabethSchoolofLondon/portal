@@ -1,14 +1,14 @@
-// React
+// React imports
 import React, { useState } from 'react'
-import { Link, useLocation, Redirect } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-// Redux
+// React Redux imports
 import { connect } from 'react-redux'
-import { logout, login } from '../../actions/auth'
+import { logout } from '../../actions/auth'
 
-// Material-UI
+// Material-UI Core imports
 import {
 	Drawer,
   makeStyles,
@@ -21,22 +21,17 @@ import {
   Divider,
   IconButton,
   MenuItem,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Button,
   Menu,
   Grid,
 } from '@material-ui/core'
 
+// Material-UI Icon imports
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 
-// Components
-import theme from '../../theme'
+// Component imports
 import { Search } from './NavComponents'
 
 const drawerWidth = 240
@@ -109,10 +104,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profileMenu: {
-    margin: theme.spacing.unit, // You might not need this now
     position: "fixed",
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 6,
+    bottom: theme.spacing(2),
+    left: theme.spacing(6),
   },
   menuWidth: {
     display: 'flex',
@@ -121,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navigation = ({ auth: { loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -148,7 +142,7 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        color="white"
+        color="inherit"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -208,8 +202,7 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         <List>
           <MenuItem
             component={Link}
-            linkButton={true}
-            selected={useLocation().pathname == '/students' ? true : false}
+            selected={useLocation().pathname === '/students' ? true : false}
             to="/students"
             classes={{
               selected: classes.selected,
@@ -219,7 +212,6 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/universities' ? true : false}
             to="/universities"
             classes={{
@@ -230,7 +222,6 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/sfe' ? true : false}
             to="/sfe"
             classes={{
@@ -241,11 +232,10 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/performance' ? true : false}
             to="/performance"
             classes={{
-              paper: classes.drawerPaper,
+              selected: classes.selected,
             }}
           >
             My Performance
