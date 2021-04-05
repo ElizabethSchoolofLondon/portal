@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import crown from '../../assets/logo/crown-orange.png'
 import { Link } from 'react-router-dom'
 import colorPalette from '../../utils/colors'
 import { connect } from 'react-redux'
