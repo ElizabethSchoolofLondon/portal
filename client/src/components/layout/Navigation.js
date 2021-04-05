@@ -1,14 +1,14 @@
-// React
+// React imports
 import React, { useState } from 'react'
-import { Link, useLocation, Redirect } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-// Redux
+// React Redux imports
 import { connect } from 'react-redux'
-import { logout, login } from '../../actions/auth'
+import { logout } from '../../actions/auth'
 
-// Material-UI
+// Material-UI Core imports
 import {
 	Drawer,
   makeStyles,
@@ -21,22 +21,17 @@ import {
   Divider,
   IconButton,
   MenuItem,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Button,
   Menu,
   Grid,
 } from '@material-ui/core'
 
+// Material-UI Icon imports
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 
-// Components
-import theme from '../../theme'
+// Component imports
 import { Search } from './NavComponents'
 
 const drawerWidth = 240
@@ -121,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navigation = ({ auth: { loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)

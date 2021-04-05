@@ -1,20 +1,25 @@
+// React imports
 import React, { useEffect } from 'react'
-import './App.css'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { ThemeProvider } from '@material-ui/core/styles'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import PrivateRoute from './components/routing/PrivateRoute'
 
-import theme from './theme'
-import Register from './components/auth/Register'
-import Login from './components/auth/Login'
-import Students from './components/pages/Students'
-
+// React Redux imports
+import store from './store'
+import { Provider } from 'react-redux'
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
-import { Provider } from 'react-redux'
-import store from './store'
+// Material-UI Core imports
+import {
+  CssBaseline,
+  ThemeProvider,
+} from '@material-ui/core'
+
+// Component imports
+import theme from './theme'
+import PrivateRoute from './components/routing/PrivateRoute'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+import Students from './components/pages/Students'
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
