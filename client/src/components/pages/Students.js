@@ -32,7 +32,10 @@ const Students = ({}) => {
   }
   */
   return (
-    <Navigation />
+    <>
+      <Navigation />
+
+    </>
   )
 }
 

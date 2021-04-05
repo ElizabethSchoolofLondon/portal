@@ -223,7 +223,6 @@ export function Search() {
 				</Grid>
       {renderMobileMenu}
       {renderMenu}
-      </div>
     </div>
   );
 }
