@@ -104,10 +104,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profileMenu: {
-    margin: theme.spacing.unit, // You might not need this now
     position: "fixed",
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 6,
+    bottom: theme.spacing(2),
+    left: theme.spacing(6),
   },
   menuWidth: {
     display: 'flex',
@@ -143,7 +142,7 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        color="white"
+        color="inherit"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -203,8 +202,7 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
         <List>
           <MenuItem
             component={Link}
-            linkButton={true}
-            selected={useLocation().pathname == '/students' ? true : false}
+            selected={useLocation().pathname === '/students' ? true : false}
             to="/students"
             classes={{
               selected: classes.selected,
@@ -214,7 +212,6 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/universities' ? true : false}
             to="/universities"
             classes={{
@@ -225,7 +222,6 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/sfe' ? true : false}
             to="/sfe"
             classes={{
@@ -236,11 +232,10 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/performance' ? true : false}
             to="/performance"
             classes={{
-              paper: classes.drawerPaper,
+              selected: classes.selected,
             }}
           >
             My Performance
