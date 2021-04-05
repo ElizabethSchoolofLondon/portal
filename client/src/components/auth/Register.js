@@ -1,27 +1,33 @@
+// React imports
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import colorPalette from '../../utils/colors'
-import crown from '../../assets/logo/crown-orange.png'
 
-import Container from '@material-ui/core/container'
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Select from '@material-ui/core/Select'
-import FormControl from '@material-ui/core/formControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import MenuItem from '@material-ui/core/MenuItem'
-import Paper from '@material-ui/core/Paper'
-import Link from '@material-ui/core/Link'
-
+// React Redux imports
 import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
 import { register } from '../../actions/auth'
 
+// Material-UI Core imports
+import {
+  Container,
+  makeStyles,
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  Select,
+  FormControl,
+  FormHelperText,
+  MenuItem,
+  Paper,
+  Link
+} from '@material-ui/core';
+
+// Component imports
 import { alertPass } from '../layout/alertFilter'
+import colorPalette from '../../utils/colors'
+import crown from '../../assets/logo/crown-orange.png'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
