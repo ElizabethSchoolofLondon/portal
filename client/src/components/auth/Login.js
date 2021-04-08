@@ -1,22 +1,28 @@
+// React imports
 import React, { useState } from 'react'
-import crown from '../../assets/logo/crown-orange.png'
 import { Redirect } from 'react-router-dom'
-import Link from '@material-ui/core/Link';
-import colorPalette from '../../utils/colors'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
+// React Redux imports
+import { connect } from 'react-redux'
 import { login } from '../../actions/auth'
-import { ThemeProvider } from '@material-ui/core/styles';
 
+// Material-UI Core imports
+import {
+  Container,
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  Paper,
+  Link,
+  makeStyles,
+  ThemeProvider,
+} from '@material-ui/core'
+
+// Component imports
 import theme from '../../theme'
-
-import Container from '@material-ui/core/container'
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Paper from '@material-ui/core/Paper'
+import crown from '../../assets/logo/crown-orange.png'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -64,68 +70,72 @@ const Login = ({ login, isAuthenticated }) => {
 
   // redirect if logged in
   if (isAuthenticated) {
-
     return <Redirect to="/students" />
   }
   return (
     <ThemeProvider theme={theme}>
-    <Container components="main" maxWidth="xs">
-      <Paper className={classes.paper} elevation={10}>
-        <img src={crown} alt="" height={50} />
+      <Container components="main" maxWidth="xs">
+        <Paper className={classes.paper} elevation={10}>
+          <img src={crown} alt="" height={50} />
 
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                value={email}
-                onChange={(e) => onChange(e)}
-                name="email"
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                autoComplete="email"
-              />
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                  name="email"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  value={password}
+                  onChange={(e) => onChange(e)}
+                  name="password"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                value={password}
-                onChange={(e) => onChange(e)}
-                name="password"
-                variant="outlined"
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              // style={{ backgroundColor: colorPalette.light.buttonSelected }}
+              className={classes.submit}
+              color="secondary"
+            >
+              Sign In
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link
+                  href="/register"
+                  color="secondary"
+                  underline="hover"
+                  variant="body2"
+                >
+                  Don't have an account? Sign up
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            // style={{ backgroundColor: colorPalette.light.buttonSelected }}
-            className={classes.submit}
-            color="secondary"
-          >
-            Sign In
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/register" color="secondary" underline="hover" variant="body2">
-                Don't have an account? Sign up
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </Container>
+          </form>
+        </Paper>
+      </Container>
     </ThemeProvider>
   )
 }
