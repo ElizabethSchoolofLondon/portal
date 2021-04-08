@@ -1,33 +1,38 @@
+// React imports
 import React, { useState } from 'react'
-import { Link, useLocation, Redirect } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+
+// React Redux imports
 import { connect } from 'react-redux'
 import { logout } from '../../actions/auth'
-import PropTypes from 'prop-types'
-import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
+
+// Material-UI Core imports
+import {
+  Drawer,
+  makeStyles,
+  useTheme,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  MenuItem,
+  Button,
+  Menu,
+  Grid,
+} from '@material-ui/core'
+
+// Material-UI Icon imports
 import MenuIcon from '@material-ui/icons/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
 
-import { login } from '../../actions/auth'
-import theme from '../../theme'
-import { StudentNav, UniversityNav } from './navComponents'
+// Component imports
+import { Search } from './NavComponents'
 
 const drawerWidth = 240
 
@@ -99,19 +104,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profileMenu: {
-    margin: theme.spacing.unit, // You might not need this now
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 6,
+    bottom: theme.spacing(2),
+    left: theme.spacing(6),
   },
   menuWidth: {
     display: 'flex',
     justifyContent: 'space-between',
+
     width: '550px',
   },
 }))
 
-const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navigation = ({ auth: { loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -138,7 +143,7 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        color="white"
+        color="inherit"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -153,14 +158,13 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Grid container direction="row" justify="center" alignItems="center">
             {
               {
-                '/students': <StudentNav />,
-                '/universities': <UniversityNav />,
+                '/students': <Search />,
               }[useLocation().pathname]
             }
-          </Typography>
+          </Grid>
         </Toolbar>
       </AppBar>
       <IconButton
@@ -194,8 +198,7 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         <List>
           <MenuItem
             component={Link}
-            linkButton={true}
-            selected={useLocation().pathname == '/students' ? true : false}
+            selected={useLocation().pathname === '/students' ? true : false}
             to="/students"
             classes={{
               selected: classes.selected,
@@ -205,7 +208,6 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/universities' ? true : false}
             to="/universities"
             classes={{
@@ -216,7 +218,6 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/sfe' ? true : false}
             to="/sfe"
             classes={{
@@ -227,11 +228,10 @@ const Navigation = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           </MenuItem>
           <MenuItem
             component={Link}
-            linkButton={true}
             selected={useLocation().pathname === '/performance' ? true : false}
             to="/performance"
             classes={{
-              paper: classes.drawerPaper,
+              selected: classes.selected,
             }}
           >
             My Performance
