@@ -34,6 +34,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 // Component imports
 import { Search } from './NavComponents'
 
+import { login } from '../../actions/auth'
+import theme from '../../theme'
+import { StudentNav, UniversityNav } from './NavComponents'
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -104,9 +108,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profileMenu: {
+    margin: theme.spacing.unit, // You might not need this now
     position: 'fixed',
-    bottom: theme.spacing(2),
-    left: theme.spacing(6),
+    bottom: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 6,
   },
   menuWidth: {
     display: 'flex',
