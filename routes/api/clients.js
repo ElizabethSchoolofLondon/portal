@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator')
 
+// import models
 const Client = require('../../models/Client')
 const User = require('../../models/User')
 const University = require('../../models/University')
@@ -112,5 +113,23 @@ router.post(
     }
   }
 )
+
+// @route  GET api/clients
+// @desc   Get client info for dashboard
+// @access Private
+router.get('/', async (req, res) => {
+  try {
+    const { email } = req.body
+    console.log(email)
+
+    const clients = await Client.find({ submittedBy: email })
+
+    if (clients) res.json(clients)
+    else res.status(404).json({ ok: false })
+  } catch (e) {
+    console.error(e.message)
+    res.status(500).send({ errors: [{ msg: 'server error' }] })
+  }
+})
 
 module.exports = router
