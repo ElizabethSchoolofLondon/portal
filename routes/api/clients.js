@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator')
+const auth = require('../../middleware/auth')
 
 // import models
 const Client = require('../../models/Client')
@@ -117,7 +118,7 @@ router.post(
 // @route  GET api/clients
 // @desc   Get client info for dashboard
 // @access Private
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const { email } = req.body
     console.log(email)
