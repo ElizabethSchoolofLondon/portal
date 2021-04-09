@@ -101,6 +101,7 @@ router.post(
         applications,
         comment,
         intake,
+        submittedBy,
       })
 
       await client.save()
