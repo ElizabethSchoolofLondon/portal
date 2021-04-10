@@ -133,4 +133,48 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
+// @route DELETE a client
+// @desc  Delete a client
+// @access private
+router.delete('/', auth, async (req, res) => {
+  try {
+    const client_email = req.body.email
+    const agent_email = req.body.submittedBy
+    const client = await Client.findOne({
+      email: client_email,
+      submittedBy: agent_email,
+    })
+    if (!client)
+      return res.status(400).json({ errors: [{ msg: 'Student not found' }] })
+
+    await client.remove()
+    res.json({ msg: 'Student selected' })
+  } catch (e) {
+    console.error(e.message)
+    res.status(500).send({ errors: [{ msg: 'Server error' }] })
+  }
+})
+
+// @route  PUT client
+// @desc   Archive a client
+// @access private
+router.put('/', auth, async (req, res) => {
+  try {
+    const client_email = req.body.email
+    const agent_email = req.body.submittedBy
+    const client = await Client.findOne({
+      email: client_email,
+      submittedBy: agent_email,
+    })
+    if (!client)
+      return res.status(400).json({ errors: [{ msg: 'Student not found' }] })
+
+    client.archived = !client.archived
+    await client.save()
+    res.json({ msg: `Student status is ${client.archived}` })
+  } catch (e) {
+    console.error(e.message)
+    res.status(500).send({ errors: [{ msg: 'Server error' }] })
+  }
+})
 module.exports = router

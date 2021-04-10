@@ -74,6 +74,10 @@ const ClientSchema = new mongoose.Schema({
     type: Date,
   },
   intake: { type: String },
+  archived: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = Client = mongoose.model('client', ClientSchema)
