@@ -10,10 +10,10 @@ import { logout } from '../../actions/auth'
 
 // Material-UI Core imports
 import {
-	Drawer,
+  Drawer,
   makeStyles,
   useTheme,
-	CssBaseline,
+  CssBaseline,
   AppBar,
   Toolbar,
   List,
@@ -33,6 +33,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 // Component imports
 import { Search } from './NavComponents'
+
+import { login } from '../../actions/auth'
+import theme from '../../theme'
+import { StudentNav, UniversityNav } from './NavComponents'
 
 const drawerWidth = 240
 
@@ -104,30 +108,32 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   profileMenu: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    left: theme.spacing(6),
+    margin: theme.spacing.unit, // You might not need this now
+    position: 'fixed',
+    bottom: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 6,
   },
   menuWidth: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '550px'
-  }
+
+    width: '550px',
+  },
 }))
 
 const Navigation = ({ auth: { loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -157,12 +163,7 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
+          <Grid container direction="row" justify="center" alignItems="center">
             {
               {
                 '/students': <Search />,
@@ -240,29 +241,42 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
           >
             My Performance
           </MenuItem>
-				</List>
+        </List>
         <Divider />
-				<Button 
-          aria-controls="simple-menu" 
-          aria-haspopup="true" 
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
           onClick={handleClick}
           className={classes.profileMenu}
         >
-
-          { !loading && (<>{user ? <Typography>{user.name} {user.surname}</Typography> : <Typography>Logged Out</Typography>}</> )}
-				</Button>
-				<Menu
-					id="simple-menu"
-					anchorEl={anchorEl}
-					keepMounted
-					open={Boolean(anchorEl)}
-					onClose={handleClose}
+          {!loading && (
+            <>
+              {user ? (
+                <Typography>
+                  {user.name} {user.surname}
+                </Typography>
+              ) : (
+                <Typography>Logged Out</Typography>
+              )}
+            </>
+          )}
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
           className={classes.menuWidth}
-				>
-					<MenuItem disabled={true} onClick={handleClose}>Profile</MenuItem>
-					<MenuItem disabled={true} onClick={handleClose}>My account</MenuItem>
-					<MenuItem onClick={logout}>Logout</MenuItem>
-      </Menu>
+        >
+          <MenuItem disabled={true} onClick={handleClose}>
+            Profile
+          </MenuItem>
+          <MenuItem disabled={true} onClick={handleClose}>
+            My account
+          </MenuItem>
+          <MenuItem onClick={logout}>Logout</MenuItem>
+        </Menu>
       </Drawer>
     </div>
   )
@@ -270,11 +284,11 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
 
 Navigation.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+})
 
 export default connect(mapStateToProps, { logout })(Navigation)
