@@ -1,3 +1,4 @@
+//region imports
 // React imports
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -33,13 +34,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 // Component imports
 import { Search } from './NavComponents'
+import { UniversityToolbar } from './NavComponents'
 
 import { login } from '../../actions/auth'
 import theme from '../../theme'
 import { StudentNav, UniversityNav } from './NavComponents'
+//endregion
 
 const drawerWidth = 240
 
+//region useStyles
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -120,7 +124,9 @@ const useStyles = makeStyles((theme) => ({
     width: '550px',
   },
 }))
+//endregion
 
+//region component
 const Navigation = ({ auth: { loading, user }, logout }) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -167,6 +173,7 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
             {
               {
                 '/students': <Search />,
+                '/universities': <UniversityToolbar />,
               }[useLocation().pathname]
             }
           </Grid>
@@ -281,6 +288,7 @@ const Navigation = ({ auth: { loading, user }, logout }) => {
     </div>
   )
 }
+//endregion
 
 Navigation.propTypes = {
   logout: PropTypes.func.isRequired,

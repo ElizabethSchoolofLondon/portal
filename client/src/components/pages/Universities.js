@@ -99,10 +99,13 @@ const Universities = ({}) => {
                     <List dense={true}>{displayTimeTable(days)}</List>
                   </div>
                 </Grid>
+                <Grid item xs={12} md={6}>
+                  <div className={classes.demo}>
+                    <List dense={true}>{displayTimeTable(days)}</List>
+                  </div>
+                </Grid>
               </Box>
-              <Box item xs={6}>
-                test2
-              </Box>
+              <Box item xs={6}></Box>
             </Paper>
             <Paper className={classes.paper}>CAMPUS</Paper>
             <Paper className={classes.paper}>MESSAGE FROM ADMIN</Paper>
