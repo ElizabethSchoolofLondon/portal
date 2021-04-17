@@ -77,4 +77,12 @@ router.post(
   }
 )
 
+// @route GET api/university
+// @desc  GET all non archived universities
+// @access Public
+router.get('/', async (req, res) => {
+  const allUniversities = await University.find({ archived: false })
+  res.json(allUniversities)
+})
+
 module.exports = router

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 // React Redux imports
 import { connect } from 'react-redux'
 import { login } from '../../actions/auth'
+import { setAlert } from '../../actions/alert'
 
 // Material-UI Core imports
 import {
@@ -51,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, setAlert, alerts }) => {
+  console.log(alerts)
   const classes = useStyles()
   const [formData, setFormData] = useState({
     email: '',
@@ -85,6 +87,8 @@ const Login = ({ login, isAuthenticated }) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  error={alerts.length > 0}
+                  helperText={alerts.length > 0 ? alerts[0].msg : ''}
                   value={email}
                   onChange={(e) => onChange(e)}
                   name="email"
@@ -98,6 +102,11 @@ const Login = ({ login, isAuthenticated }) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={
+                    alerts.length > 0 &&
+                    alerts[0].msg === 'Invalid login details'
+                  }
+                  helperText={alerts.length > 0 ? alerts[0].msg : ''}
                   value={password}
                   onChange={(e) => onChange(e)}
                   name="password"
@@ -143,9 +152,11 @@ const Login = ({ login, isAuthenticated }) => {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  setAlert: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  alerts: state.alert,
 })
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, setAlert })(Login)

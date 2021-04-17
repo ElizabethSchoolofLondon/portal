@@ -9,10 +9,7 @@ import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
 
 // Material-UI Core imports
-import {
-  CssBaseline,
-  ThemeProvider,
-} from '@material-ui/core'
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 
 // Component imports
 import theme from './theme'
@@ -20,6 +17,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Students from './components/pages/Students'
+import Universities from './components/pages/Universities'
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
@@ -39,6 +37,7 @@ export default function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/students" component={Students} />
+            <PrivateRoute exact path="/universities" component={Universities} />
           </Switch>
         </Router>
       </ThemeProvider>

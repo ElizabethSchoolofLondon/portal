@@ -1,9 +1,14 @@
+//region imports
 // React imports
-import React from 'react';
+import React, { useState } from 'react'
+
+// Redux imports
+import { getNonArchivedUniversities } from '../../actions/university'
 
 // Material-UI Core imports
 import {
   fade,
+  Fade,
   makeStyles,
   Grid,
   IconButton,
@@ -11,19 +16,23 @@ import {
   Badge,
   MenuItem,
   Menu,
-} from '@material-ui/core';
+  Button,
+} from '@material-ui/core'
 
 // Material-UI Icon imports
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SearchIcon from '@material-ui/icons/Search';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import SearchIcon from '@material-ui/icons/Search'
 import MailIcon from '@material-ui/icons/Mail'
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import * as PropTypes from 'prop-types'
+//endregion
 
+//region useStyles
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
-		maxHeight: '64px',
+    maxHeight: '64px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -43,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
-		minWidth: '250px',
-		maxWidth: '250px',
+    minWidth: '250px',
+    maxWidth: '250px',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
@@ -85,34 +94,39 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-}));
+  margin: {
+    margin: theme.spacing(1),
+  },
+}))
+//endregion
 
+//region student page toolbar
 export function Search() {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMenuOpen = Boolean(anchorEl)
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+    setMobileMoreAnchorEl(null)
+  }
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
 
   const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+    setMobileMoreAnchorEl(event.currentTarget)
+  }
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -126,9 +140,9 @@ export function Search() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
-  );
+  )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -167,66 +181,106 @@ export function Search() {
         <p>Profile</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   return (
     <div className={classes.grow}>
-			<Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+      <Grid container direction="row" justify="center" alignItems="center">
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircleIcon />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </div>
-				</Grid>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </div>
+        <div className={classes.grow} />
+        <div className={classes.sectionDesktop}>
+          <IconButton aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton aria-label="show 17 new notifications" color="inherit">
+            <Badge badgeContent={17} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        </div>
+        <div className={classes.sectionMobile}>
+          <IconButton
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MoreVertIcon />
+          </IconButton>
+        </div>
+      </Grid>
       {renderMobileMenu}
       {renderMenu}
     </div>
-  );
+  )
 }
+//endregion
+
+//region university page toolbar
+export function UniversityToolbar() {
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  //region TEST REGION
+  const uniName = ['uni one', 'uni two', 'uni three']
+  const uniComponent = uniName.map((uni) => (
+    <MenuItem onClick={handleClose}>{uni}</MenuItem>
+  ))
+  //endregion
+  return (
+    <>
+      <Button
+        aria-controls="fade-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        Open with fade transition
+      </Button>
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+        {uniComponent}
+      </Menu>
+    </>
+  )
+}
+//endregion
