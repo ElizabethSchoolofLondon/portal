@@ -1,10 +1,11 @@
 //region imports
 // React imports
-import React from 'react'
+import React, { useState } from 'react'
 
 // Material-UI Core imports
 import {
   fade,
+  Fade,
   makeStyles,
   Grid,
   IconButton,
@@ -12,6 +13,7 @@ import {
   Badge,
   MenuItem,
   Menu,
+  Button,
 } from '@material-ui/core'
 
 // Material-UI Icon imports
@@ -239,6 +241,43 @@ export function Search() {
 //region university page toolbar
 export function UniversityToolbar() {
   const classes = useStyles()
-  return <></>
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  //region TEST REGION
+  const uniName = ['uni one', 'uni two', 'uni three']
+  const uniComponent = uniName.map((uni) => (
+    <MenuItem onClick={handleClose}>{uni}</MenuItem>
+  ))
+  //endregion
+  return (
+    <>
+      <Button
+        aria-controls="fade-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        Open with fade transition
+      </Button>
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+        {uniComponent}
+      </Menu>
+    </>
+  )
 }
 //endregion
