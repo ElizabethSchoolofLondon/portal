@@ -156,7 +156,7 @@ router.delete('/', auth, async (req, res) => {
 })
 
 // @route  PUT client
-// @desc   Archive a client
+// @desc   archive / un-archive a client
 // @access private
 router.put('/', auth, async (req, res) => {
   try {
