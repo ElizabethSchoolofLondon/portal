@@ -2,10 +2,10 @@ import axios from 'axios'
 import { GET_UNIVERSITY_NAME, GET_UNIVERSITY_NAME_FAIL } from '../actions/types'
 import { setAlert } from './alert'
 
-//region get university name
-export const getUniversityName = (universityName) => async (dispatch) => {
+//region get non-archived universities
+export const getNonArchivedUniversities = () => async (dispatch) => {
   try {
-    const res = await axios.get('api/university', { universityName })
+    const res = await axios.get('api/university')
     dispatch({ type: GET_UNIVERSITY_NAME, payload: res.data })
   } catch (err) {
     if (err.response) {
