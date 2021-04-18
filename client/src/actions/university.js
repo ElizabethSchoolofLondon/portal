@@ -1,12 +1,13 @@
 import axios from 'axios'
-import { GET_UNIVERSITY_NAME, GET_UNIVERSITY_NAME_FAIL } from '../actions/types'
+import { GET_UNIVERSITY_LIST, GET_UNIVERSITY_LIST_FAIL } from './types'
 import { setAlert } from './alert'
 
 //region get non-archived universities
 export const getNonArchivedUniversities = () => async (dispatch) => {
   try {
     const res = await axios.get('api/university')
-    dispatch({ type: GET_UNIVERSITY_NAME, payload: res.data })
+    console.log(res.data)
+    dispatch({ type: GET_UNIVERSITY_LIST, payload: res.data })
   } catch (err) {
     if (err.response) {
       const errors = err.response.data.errors
@@ -14,6 +15,6 @@ export const getNonArchivedUniversities = () => async (dispatch) => {
         errors.forEach((error) => dispatch(setAlert(error.msg, 'noUniFound')))
       }
     }
-    dispatch({ type: GET_UNIVERSITY_NAME_FAIL })
+    dispatch({ type: GET_UNIVERSITY_LIST_FAIL })
   }
 }

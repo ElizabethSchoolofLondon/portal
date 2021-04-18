@@ -1,6 +1,7 @@
 //region imports
 // React imports
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
 // Redux imports
 import { getNonArchivedUniversities } from '../../actions/university'
@@ -25,7 +26,6 @@ import SearchIcon from '@material-ui/icons/Search'
 import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import * as PropTypes from 'prop-types'
 //endregion
 
 //region useStyles
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
 //endregion
 
 //region student page toolbar
-export function Search() {
+const Search = () => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
@@ -241,46 +241,4 @@ export function Search() {
 }
 //endregion
 
-//region university page toolbar
-export function UniversityToolbar() {
-  const classes = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const open = Boolean(anchorEl)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  //region TEST REGION
-  const uniName = ['uni one', 'uni two', 'uni three']
-  const uniComponent = uniName.map((uni) => (
-    <MenuItem onClick={handleClose}>{uni}</MenuItem>
-  ))
-  //endregion
-  return (
-    <>
-      <Button
-        aria-controls="fade-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        Open with fade transition
-      </Button>
-      <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        {uniComponent}
-      </Menu>
-    </>
-  )
-}
-//endregion
+export default Search

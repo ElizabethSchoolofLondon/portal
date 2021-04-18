@@ -33,8 +33,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 // Component imports
-import { Search } from './NavComponents'
-import { UniversityToolbar } from './NavComponents'
+import Search from './NavComponents'
+import UniversityToolbar from './NavToolbar/UniversityToolbar'
 
 import { login } from '../../actions/auth'
 import theme from '../../theme'
